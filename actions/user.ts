@@ -1,16 +1,18 @@
 import { Todo, ID } from "types/todo";
 import { CreatorsToActions, makeReducer } from "actions/helper";
 
+//一旦適当
+
 export const ActionCreators = {
-  addTodo(todo: Todo) {
+  addUser(user: Todo) {
     return {
-      type: "ADDTODO",
-      todo,
+      type: "ADDUser",
+      user,
     } as const
   },
-  deleteTodo(id: ID<Todo>) {
+  deleteUser(id: ID<Todo>) {
     return {
-      type: "DELETETODO",
+      type: "DELETEUser",
       id,
     } as const
   }
@@ -19,20 +21,20 @@ export const ActionCreators = {
 export type Action = CreatorsToActions<typeof ActionCreators>;
 
 export type State = {
-  readonly todos: Todo[]
+  readonly users: Todo[]
 }
 
 const initialState: State = {
-  todos: []
+  users: []
 }
 
 export const reducer = makeReducer<State, Action>({
   apply(state, action): State {
     switch(action.type) {
-      case "ADDTODO": 
-        return {...state, todos: state.todos.concat(action.todo)}
-      case "DELETETODO":
-        return {...state, todos: state.todos.filter(todo => todo.id !== action.id)}
+      case "ADDUser": 
+        return {...state, users: state.users.concat(action.user)}
+      case "DELETEUser":
+        return {...state, users: state.users.filter(todo => todo.id !== action.id)}
     }
   },
   initialState

@@ -1,5 +1,4 @@
 export type ID<Entity> = string
-
 export type Todo = {
   id: ID<Todo>
   title: string
