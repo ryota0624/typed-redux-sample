@@ -1,6 +1,9 @@
 module.exports = {
   "roots": [
-    "<rootDir>/src"
+    "<rootDir>/ducks"
+  ],
+  "modulePaths": [
+    "<rootDir>"
   ],
   "transform": {
     "^.+\\.tsx?$": "ts-jest"

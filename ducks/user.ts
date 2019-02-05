@@ -1,5 +1,5 @@
 import { Todo, ID } from "types/todo";
-import { CreatorsToActions, makeReducer } from "actions/helper";
+import { CreatorsToActions, makeReducer } from "ducks/helper";
 
 //一旦適当
 
