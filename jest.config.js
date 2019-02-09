@@ -1,6 +1,6 @@
 module.exports = {
   "roots": [
-    "<rootDir>/ducks"
+    "<rootDir>/app"
   ],
   "modulePaths": [
     "<rootDir>"
@@ -17,4 +17,7 @@ module.exports = {
     "json",
     "node"
   ],
+  "setupFilesAfterEnv": [
+    "<rootDir>/app/setupTests.ts"
+  ]
 }

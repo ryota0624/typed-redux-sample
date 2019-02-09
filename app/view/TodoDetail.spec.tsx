@@ -25,7 +25,7 @@ test("id表示隠すボタン", () => {
   const wrapper = shallow(<TodoDetail todo={todo} onChangeIdViewable={handleChangeSpy}/>);
   const idButton = wrapper.find(".todo-detail-id-button");
   idButton.simulate("click");
-  
-  expect(wrapper.find(".todo-detail-id").text()).toBe("secret");
   expect(handleChangeSpy).toHaveBeenCalledWith(false);
+
+  expect(wrapper.find(".todo-detail-id").text()).toBe("secret");
 });
