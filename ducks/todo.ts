@@ -13,6 +13,11 @@ export const ActionCreators = {
       type: "DELETETODO",
       id,
     } as const
+  },
+  reloadTodos() {
+    return {
+      type: "RELOADTODO",
+    } as const
   }
 }
 
@@ -33,6 +38,8 @@ export const reducer = makeReducer<State, Action>({
         return {...state, todos: state.todos.concat(action.todo)}
       case "DELETETODO":
         return {...state, todos: state.todos.filter(todo => todo.id !== action.id)}
+      case "RELOADTODO":
+        return state;
     }
   },
   initialState
