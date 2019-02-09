@@ -3,7 +3,7 @@
 
 // function todoPresenterProvider<R>(fn: ((p:TodoPresenter) => R)): R {
 //   return fn(new TodoPresenter(
-    
+
 //   ))
 // }
 
