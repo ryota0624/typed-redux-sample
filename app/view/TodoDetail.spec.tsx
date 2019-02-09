@@ -1,7 +1,7 @@
-const {shallow, mount, render } = require("enzyme");
+import {shallow, mount, render} from "enzyme";
 import * as React from "react";
-import {makeTodo} from "types/todo";
-import {TodoDetail} from "view/TodoDetail";
+import {makeTodo} from "app/types/todo";
+import {TodoDetail} from "app/view/TodoDetail";
 test('レンダリングが行われる', () => {
   // == given ==
   const wrapper = shallow(<TodoDetail todo={makeTodo("id", "sample")}/>);

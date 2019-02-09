@@ -1,6 +1,6 @@
 import * as React from "react";
 import {useState, useEffect} from "react";
-import { Todo } from "types/todo";
+import { Todo } from "app/types/todo";
 
 export type Props = {
   todo: Todo,
@@ -21,6 +21,7 @@ export function TodoDetail({todo, onChangeIdViewable}: Props) {
       <ul>
         <li className={className`id`}>{isIdViewable ? todo.id : "sercret"}</li>
         <button onClick={() => setIdViewable((prev) => !prev)} className={className`id-button`}>
+          { isIdViewable ? "IDを隠す" : "IDを表示する"}
         </button>
         <li className={className`title`}>{todo.title}</li>
       </ul>

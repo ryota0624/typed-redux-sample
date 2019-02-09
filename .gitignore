@@ -2,3 +2,5 @@
 node_modules
 !jest.config.js
 dist
+
+.cache

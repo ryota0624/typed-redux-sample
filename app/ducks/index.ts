@@ -1,6 +1,6 @@
-import * as todo from "ducks/todo";
-import * as user from "ducks/user";
-import {makeTodo} from "types/todo";
+import * as todo from "app/ducks/todo";
+import * as user from "app/ducks/user";
+import {makeTodo} from "app/types/todo";
 import * as redux from "redux";
 
 type Action = todo.Action | user.Action;
