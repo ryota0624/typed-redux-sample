@@ -64,7 +64,7 @@ export function TodoDetail({ todo, onChangeIdViewable, onEditedTodo }: Props) {
       if (onEditedTodo) {
         const edited = onEditedTodo(editableTodo);
         Promise.resolve()
-          .then(() => edited)
+          .then(() => edited as any)
           .then(() => setEdittingTodo(false));
         return;
       }

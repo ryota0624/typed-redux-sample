@@ -1,9 +1,18 @@
+/**
+ * よくわかってない
+ */
 type Unwrap<T> = T extends { [K in keyof T]: infer U } ? U : never;
+
+/**
+ * クラスのメソッド型を抽出する
+ */
 type ReturnTypes<T> = {
   [K in keyof T]: T[K] extends (...args: any[]) => any
     ? ReturnType<T[K]>
     : never
 };
+
+export type MethodReturnToUnion<T> = Unwrap<ReturnTypes<T>>;
 
 export type CreatorsToActions<T> = Unwrap<ReturnTypes<T>>;
 
