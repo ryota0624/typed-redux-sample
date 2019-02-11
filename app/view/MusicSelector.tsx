@@ -3,19 +3,16 @@ import {MusicJson} from "../api/itunes";
 import * as React from "react";
 
 function useMusicSelector() {
-  const [keyword, setKeyword] = React.useState("");
-  const [musicData] = useGetMusicData(keyword);
-  const returnDatas = {keyword, musicData};
-  return { returnDatas, setKeyword }
+  const [musicData, setKeyword] = useGetMusicData();
+  return { musicData, setKeyword }
 }
 
 export function MusicSelector() {
-  const {setKeyword, returnDatas: {keyword, musicData}} = useMusicSelector();
+  const { musicData, setKeyword } = useMusicSelector();
 
   const MusicData = () => {
-    if (keyword.length <= 0) {
-      return null;
-    } 
+    if (musicData === null)
+      return <div>検索をまっています...</div>
     switch (musicData.type) {
       case "failure":
         return <p>{musicData.error.toString()}</p>
@@ -46,15 +43,14 @@ export function MusicSelector() {
       setKeyword(value);
     }
   }
+
   return (
     <div>
-      <input onKeyDown={e => {
-        if (e.keyCode === 13) {
-          onClickButton();
-        }
-      }} ref={inputRef}></input>
+      <input 
+        onKeyDown={e => (e.keyCode === 13) ? onClickButton() : null} 
+        ref={inputRef}>
+      </input>
       <button onClick={onClickButton}>検索</button>
-      {keyword}
       <MusicData />
     </div>
   );

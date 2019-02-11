@@ -1,6 +1,6 @@
-import {useState, useEffect, useCallback} from "react";
+import {useState, useEffect, useCallback, Context} from "react";
 import {MethodReturnToUnion} from "../types/helper";
-import {getMusics} from "../api/itunes";
+import {getMusics, GetMusicResult} from "../api/itunes";
 export function Success<D>(data: D) {
   return {
     data,
@@ -26,35 +26,37 @@ class ResultMaker<E> {
 
 type Result<E> = MethodReturnToUnion<ResultMaker<E>>
 
-export function usePromise<E>(getPromise: () => Promise<E>) {
+export function usePromise<E>() {
   const resultMaker = new ResultMaker<E>()
   const [result, setResult] = useState<Result<E>>(resultMaker.Pending);
-
-  const getRemoteDateAndSetResult = () => {
-    getPromise().then(data => {
-      setResult(resultMaker.Success(data));
-    }).catch(error => {
-      setResult(resultMaker.Failure(error));
-    });
-  }
+  const [promise, setPromise] = useState<null | Promise<E>>(null);
 
   useEffect(() => {
-    getRemoteDateAndSetResult();
-  },[getPromise]);
+    if (promise) {
+      promise.then(data => {
+        setResult(resultMaker.Success(data));
+      }).catch(error => {
+        setResult(resultMaker.Failure(error));
+      });
+    }
+  }, [promise]);
 
-  const retry = () => {
-    getRemoteDateAndSetResult();
+  return { 
+    result, 
+    setPromise: (promise: Promise<E>) => setPromise(promise)
   };
-
-  return [result, retry] as const;
 }
 
-export function useGetMusicData(keyword: string) {
-  const getMusicsFn = useCallback(() => {
-    if (keyword.length === 0) {
-      return Promise.reject(new Error("キーワードが空です。"))
+type SearchQuery = string | null;
+
+export function useGetMusicData() {
+  const [searchQuery, setSearchQuery] = useState<SearchQuery>(null);
+  const {result, setPromise} = usePromise<GetMusicResult>();
+  useEffect(() => {
+    if (searchQuery) {
+      setPromise(getMusics(searchQuery));
     }
-    return getMusics(keyword);
-  }, [keyword]);
-  return usePromise(getMusicsFn);
+  }, [searchQuery]);
+
+  return [searchQuery ? result : null, setSearchQuery] as const;
 }

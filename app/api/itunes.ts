@@ -23,7 +23,9 @@ function createRequestParam(keyword: string) {
   };
 }
 
-export function getMusics(keyword: string): Promise<{results: MusicJson[], resultCount: number}> {
+export type GetMusicResult = {results: MusicJson[], resultCount: number};
+
+export function getMusics(keyword: string): Promise<GetMusicResult> {
   return fetch(`${url}?${serialize(createRequestParam(keyword))}`).then(response => response.json())
   // return Promise.resolve(
   //   {
